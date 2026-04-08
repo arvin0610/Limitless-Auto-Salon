@@ -172,7 +172,143 @@ img { max-width: 100%; display: block; }
 .footer-bottom { border-top: 1px solid var(--border); padding-top: 30px; text-align: center; }
 .footer-bottom p { color: var(--text-muted); font-size: 0.8rem; }
 
-/* ========== ANIMATIONS ========== */
+/* ========== SCROLL REVEAL ANIMATIONS ========== */
+.reveal {
+    opacity: 0;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+.reveal-up { transform: translateY(50px); }
+.reveal-down { transform: translateY(-50px); }
+.reveal-left { transform: translateX(60px); }
+.reveal-right { transform: translateX(-60px); }
+.reveal-none { transform: none; }
+.reveal.revealed { opacity: 1; transform: translate(0, 0); }
+
+/* ========== HERO STAGGERED ENTRANCE ========== */
+@keyframes heroSlowZoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.08); }
+}
+
+.hero-bg img { animation: heroSlowZoom 20s ease-out forwards; }
+
+.hero-content .hero-tagline {
+    opacity: 0; animation: fadeInUp 0.7s ease-out 0.2s forwards;
+}
+.hero-content .hero-title {
+    opacity: 0; animation: fadeInUp 0.7s ease-out 0.45s forwards;
+}
+.hero-content .hero-description {
+    opacity: 0; animation: fadeInUp 0.7s ease-out 0.7s forwards;
+}
+.hero-content .hero-buttons {
+    opacity: 0; animation: fadeInUp 0.7s ease-out 0.95s forwards;
+}
+
+/* ========== GREEN GLOW PULSE ON HIGHLIGHT TEXT ========== */
+@keyframes glowPulse {
+    0%, 100% { text-shadow: 0 0 8px rgba(0, 179, 65, 0.3); }
+    50% { text-shadow: 0 0 20px rgba(0, 179, 65, 0.5), 0 0 40px rgba(0, 179, 65, 0.2); }
+}
+.hero-title .highlight { animation: glowPulse 3s ease-in-out infinite 1.5s; }
+
+/* ========== SECTION HEADER LINE DRAW ========== */
+.section-header { position: relative; }
+.section-header::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--primary);
+    margin: 20px auto 0;
+    transform: scaleX(0);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+}
+.reveal.revealed .section-header::after { transform: scaleX(1); }
+
+/* ========== SERVICE CARD ICON FLOAT ========== */
+@keyframes iconFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+.service-card:hover .service-icon { animation: iconFloat 1.5s ease-in-out infinite; }
+
+/* ========== FEATURE CARD GREEN BORDER GLOW ========== */
+.feature-card { position: relative; }
+.feature-card::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: var(--radius-md);
+    opacity: 0;
+    background: linear-gradient(135deg, var(--primary), transparent, var(--primary));
+    z-index: -1;
+    transition: opacity 0.4s ease;
+    filter: blur(8px);
+}
+.feature-card:hover::after { opacity: 0.3; }
+
+/* ========== STAT NUMBER GLOW ON COUNT ========== */
+@keyframes statGlow {
+    0% { text-shadow: none; }
+    50% { text-shadow: 0 0 20px rgba(0, 179, 65, 0.6); }
+    100% { text-shadow: 0 0 8px rgba(0, 179, 65, 0.3); }
+}
+.stat-number { animation: statGlow 1.5s ease-out 0.5s both; }
+
+/* ========== GALLERY ITEM FILTER TRANSITIONS ========== */
+.gallery-item {
+    animation: galleryFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes galleryFadeIn {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* ========== CONTACT ICON PULSE ========== */
+@keyframes iconPulse {
+    0% { box-shadow: 0 0 0 0 rgba(0, 179, 65, 0.3); }
+    70% { box-shadow: 0 0 0 10px rgba(0, 179, 65, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 179, 65, 0); }
+}
+.contact-item:hover .contact-icon { animation: iconPulse 1s ease-out; }
+
+/* ========== BUTTON SHINE SWEEP ========== */
+.btn { position: relative; overflow: hidden; }
+.btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -75%;
+    width: 50%;
+    height: 200%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.6s ease;
+    pointer-events: none;
+}
+.btn:hover::after { left: 125%; }
+
+/* ========== NAVBAR LOGO SUBTLE GLOW ========== */
+.nav-logo { transition: filter 0.3s ease; }
+.nav-logo:hover { filter: drop-shadow(0 0 8px rgba(0, 179, 65, 0.4)); }
+
+/* ========== SMOOTH SECTION DIVIDER LINES ========== */
+.services::before,
+.contact::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border), transparent);
+    margin-bottom: 0;
+}
+
+/* ========== FOOTER SOCIAL SPIN ========== */
+.social-links a:hover svg { transform: rotate(360deg); transition: transform 0.5s ease; }
+
+/* legacy compat */
 .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
 .fade-in.visible { opacity: 1; transform: translateY(0); }
 

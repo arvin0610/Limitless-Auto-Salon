@@ -1,3 +1,7 @@
+'use client';
+
+import ScrollReveal from './ScrollReveal';
+
 const services = [
   {
     title: 'Exterior Detailing',
@@ -42,19 +46,23 @@ export default function Services() {
   return (
     <section id="services" className="section services">
       <div className="container">
-        <div className="section-header">
-          <p className="section-subtitle">What We Offer</p>
-          <h2 className="section-title">Our <span className="highlight">Services</span></h2>
-        </div>
+        <ScrollReveal>
+          <div className="section-header">
+            <p className="section-subtitle">What We Offer</p>
+            <h2 className="section-title">Our <span className="highlight">Services</span></h2>
+          </div>
+        </ScrollReveal>
         <div className="services-grid">
-          {services.map((service) => (
-            <div key={service.title} className={`service-card${service.featured ? ' featured' : ''}`}>
-              {service.featured && <div className="service-badge">Most Popular</div>}
-              <div className="service-icon">{service.icon}</div>
-              <h3>{service.title}</h3>
-              <p>{service.description}</p>
-              <span className="service-price">{service.price}</span>
-            </div>
+          {services.map((service, i) => (
+            <ScrollReveal key={service.title} delay={i * 100}>
+              <div className={`service-card${service.featured ? ' featured' : ''}`}>
+                {service.featured && <div className="service-badge">Most Popular</div>}
+                <div className="service-icon">{service.icon}</div>
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
+                <span className="service-price">{service.price}</span>
+              </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

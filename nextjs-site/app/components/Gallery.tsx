@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import ScrollReveal from './ScrollReveal';
 
 const filters = ['all', 'correction', 'ceramic', 'ppf', 'detail'] as const;
 
@@ -22,24 +23,28 @@ export default function Gallery() {
   return (
     <section id="gallery" className="section gallery">
       <div className="container">
-        <div className="section-header">
-          <p className="section-subtitle">Our Work</p>
-          <h2 className="section-title">Recent <span className="highlight">Projects</span></h2>
-        </div>
-        <div className="gallery-filters">
-          {filters.map((f) => (
-            <button
-              key={f}
-              className={`filter-btn${activeFilter === f ? ' active' : ''}`}
-              onClick={() => setActiveFilter(f)}
-            >
-              {f === 'all' ? 'All' : f === 'ppf' ? 'PPF' : f.charAt(0).toUpperCase() + f.slice(1)}
-            </button>
-          ))}
-        </div>
+        <ScrollReveal>
+          <div className="section-header">
+            <p className="section-subtitle">Our Work</p>
+            <h2 className="section-title">Recent <span className="highlight">Projects</span></h2>
+          </div>
+        </ScrollReveal>
+        <ScrollReveal delay={100}>
+          <div className="gallery-filters">
+            {filters.map((f) => (
+              <button
+                key={f}
+                className={`filter-btn${activeFilter === f ? ' active' : ''}`}
+                onClick={() => setActiveFilter(f)}
+              >
+                {f === 'all' ? 'All' : f === 'ppf' ? 'PPF' : f.charAt(0).toUpperCase() + f.slice(1)}
+              </button>
+            ))}
+          </div>
+        </ScrollReveal>
         <div className="gallery-grid">
-          {filtered.map((project) => (
-            <div key={project.src} className="gallery-item">
+          {filtered.map((project, i) => (
+            <div key={project.src + activeFilter} className="gallery-item" style={{ animationDelay: `${i * 80}ms` }}>
               <Image
                 src={project.src}
                 alt={project.alt}
